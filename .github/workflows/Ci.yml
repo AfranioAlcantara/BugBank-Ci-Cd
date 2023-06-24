@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [ "mater" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # Instala as dependências do Cypress
+      - name: Install Cypress
+        run: |
+          npm install cypress
+          npx cypress verify
+
+      # Executa os testes com o Cypress
+      - name: Run Cypress tests
+        run: npx cypress run
